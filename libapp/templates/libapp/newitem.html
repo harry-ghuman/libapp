@@ -1,0 +1,81 @@
+{% extends 'libapp/base.html' %}
+{% block title %}
+    New Item
+{% endblock %}
+{% block body_block %}
+     <table class="table table-hover table-striped table-bordered">
+      <tr><td width="20%"></td><td width="60%">
+
+
+    <div >
+        <h2>SUGGESTED ITEMS</h2>
+    </div>
+    <table >
+         <table class="table table-hover table-striped table-bordered">
+            <tr >
+                <td colspan="3" align="center"> <strong>Books</strong> </td>
+            </tr>
+            <div >
+                {% if itemlist %}
+
+                    {% for item in itemlist %}
+                        {% if item.get_type_display == "Book" %}
+                            <tr><td>{{ item.title}} </td> <td>{{ item.pubyr }} </td> <td>${{ item.cost }} </td> </tr>
+                        {% endif %}
+                    {% endfor %}
+
+                {% else %}
+                    <strong>There are no available items!</strong>
+                {% endif %}
+            </div>
+        </table>
+        <table >
+            <table class="table table-hover table-striped table-bordered">
+            <tr >
+                <td colspan="3" align="center"> <strong>DVD</strong> </td>
+            </tr>
+            <div >
+                {% if itemlist %}
+                    {% for item in itemlist %}
+                        {% if item.get_type_display == "DVD" %}
+                            <tr><td>{{ item.title}} </td> <td>{{ item.pubyr }} </td> <td>${{ item.cost }} </td> </tr>
+                        {% endif %}
+                    {% endfor %}
+
+                {% else %}
+                    <strong>There are no available items!</strong>
+                {% endif %}
+            </div>
+        </table>
+    </div>
+
+        <br/>
+   <hr/>
+        <br/>
+
+         <table class="table table-hover table-striped table-bordered">
+        <tr ><td colspan="2"> <h2>Fill this form to Submit New Item</h2> </td> </tr>
+            <form name="myForm" action="{% url 'libapp:newitem' %}"  method="post">
+                {% csrf_token %}
+
+                <tr><td colspan="2" align="center">
+                    <div class="controls">
+                        <span class="help-inline" color="red">
+                            {% for error in  form.pubyr.errors %}{{ error }}{% endfor %}
+                        </span>
+                    </div>
+                </td></tr>
+
+                <tr><td>Title</td> <td>{{ form.title }}</td> </tr>
+                 <tr> <td>Publication Year</td> <td>{{ form.pubyr }} </td> </tr>
+                 <tr><td>Amount In Dollar</td> <td>{{ form.cost }}</td> </tr>
+                 <tr><td>Item Type</td> <td>{{ form.type }}</td> </tr>
+                 <tr><td>Comments</td> <td>{{ form.comments }}</td> </tr>
+                 <tr><td colspan="2" align="center"> <input type="submit" value="Submit" class="btn btn-success"></td>
+            </form>
+    </table>
+
+      </td><td width="20%"></td></tr>
+      </table>
+
+{% endblock %}

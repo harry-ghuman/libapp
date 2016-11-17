@@ -1,0 +1,32 @@
+.hbar1 {
+    display: inline;
+    margin: 15px;
+}
+
+li a:hover {
+    background-color: #111;
+}
+
+h1{
+    font-size: 32px;
+    font-style: normal;
+    color: gray;
+    text-align: center;
+}
+
+li a {
+    color: red;
+    text-align: left;
+    text-decoration: none;
+}
+
+body {
+    background-color:lightgrey
+}
+
+li {
+    color: darkslategrey;
+    text-align: left;
+    text-decoration: none;
+}
+

@@ -1,0 +1,59 @@
+
+{% extends 'libapp/base.html' %}
+{% block title %}
+    Suggestions
+{% endblock %}
+{% block body_block %}
+
+    <table class="table table-hover table-striped ">
+      <tr><td width="25%"></td><td width="50%">
+
+    <div class="row" align="center">
+            <h3 align="center">List of Suggested Items</h3>
+            <a href="{% url 'libapp:newitem' %}" class="btn btn-success">New Item</a>
+    </div>
+      <br/>
+    <div class="row">
+        <div>
+            <div>
+                {% if itemlist %}
+                <table class="table table-hover table-striped ">
+                <tr><td colspan="3" align="center"> BOOK</td></tr>
+                <tr><td>Title</td><td>Pub Year</td><td>Cost</td></tr>
+                    {% for item in itemlist %}
+                        {% if item.get_type_display == "Book" %}
+                            <tr><td>{{ item.title}} </td><td>{{ item.pubyr }} </td><td>${{ item.cost }} </td></tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+
+                {% else %}
+                    <strong>There are no available items!</strong>
+                {% endif %}
+            </div>
+        </div>
+
+        <div>
+
+            <div>
+                {% if itemlist %}
+                 <table class="table table-hover table-striped ">
+                  <tr><td colspan="3" align="center"> DVD</td></tr>
+                <tr><td>Title</td><td>Pub Year</td><td>Cost</td></tr>
+                    {% for item in itemlist %}
+                        {% if item.get_type_display == "DVD" %}
+                            <tr><td>{{ item.title}} </td><td> {{ item.pubyr }} </td><td> ${{ item.cost }}</td></tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+
+                {% else %}
+                    <strong>There are no available items!</strong>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    </td><td width="25%"></td></tr>
+    </table>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>My Library APP</title>
+</head>
+
+<body>
+    {% if item %}
+        <h2>Library items</h2>
+        <ol>
+                <li> Title:  {{ item.title}} </li>
+                <li> Pubyear:  {{ item.pubyr}} </li>
+                {% if item.itemtype == 'Book' %}
+                  <li> Author:  {{ item.book.author}} </li>
+                  <li> category:  {{ item.book.category}} </li>
+                {% elif item.itemtype == 'DVD' %}
+                    <li> Maker:  {{ item.dvd.maker}} </li>
+                    <li> Duration:  {{ item.dvd.duration}} </li>
+                    <li> Rating:  {{ item.dvd.rating}} </li>
+                {% endif %}
+        </ol>
+
+    {% else %}
+        <strong>There are no available items!</strong>
+    {% endif %}
+</body>
+</html>
+{#<p><a href="/libapp/about">About page</a></p>#}
+<p><a href="{% url 'libapp:about' %}">About page</a></p>
+<p><a href="{% url 'libapp:index' %}">Index page</a></p>

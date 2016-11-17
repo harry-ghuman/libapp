@@ -1,0 +1,26 @@
+{% extends 'libapp/base.html' %}
+{% block body_block %}
+    <div class="collection">
+            {% if itemlist %}
+        <h4>List of Library items</h4>
+        <ul type="">
+            {% for item in itemlist %}
+            {% if item.itemtype == 'Book' %}
+                <li> <a href="{% url 'app:index' %}{{ item.id }}" class="collection-item" style="background: none; color: whitesmoke"><i class="material-icons" style="color: #e1f5fe">library_books</i>&nbsp; &nbsp;{{ item.title }}</a></li>
+                {% elif item.itemtype == 'DVD' %}
+                <li> <a href="{% url 'app:index' %}{{ item.id }}" class="collection-item" style="background:none; color: whitesmoke" ><i class="material-icons" style="color: #e1f5fe">play_circle_outline</i>&nbsp;&nbsp;{{ item.title }}</a></li>
+                {% else %}
+                <li><a href="{% url 'app:index' %}{{ item.id }}" class="collection-item" style="background: none; color: whitesmoke">&nbsp;&nbsp;{{ item.title }}</a><br/></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <strong>There are no available items!</strong>
+    {% endif %}
+    </div><br/><hr/><br/>
+    {% if request.session.luckynum  %}
+        <h4 style="color: whitesmoke; text-align: center">Your lucky number is: {{ request.session.luckynum }}</h4>
+        {% else %}
+        <h4 style="color: whitesmoke; text-align: center">Your lucky number is: 0</h4>
+    {% endif %}
+{% endblock %}

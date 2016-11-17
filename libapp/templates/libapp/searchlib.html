@@ -1,0 +1,71 @@
+{% extends 'libapp/base.html' %}
+{% block title %}
+    Suggestions
+{% endblock %}
+{% block body_block %}
+     <table class="table table-hover table-striped table-bordered">
+      <tr><td width="30%"></td><td width="40%">
+    <div>
+            <strong>Search</strong>
+         <table class="table table-hover table-striped table-bordered">
+             <tr><td>Title</td><td>By</td><td></td></tr>
+             <tr><td colspan="3">
+              <form action="{% url 'libapp:searchresult' %}" method="get">
+                {% csrf_token %}
+                {{ form.title }}
+                {{ form.by }}
+                <input type="submit" value="Search" class="btn btn-success">
+            </form>
+             </td></tr>
+
+             </table>
+    </div>
+    <div>
+            <h2>List of Searched items</h2>
+    </div>
+    <div>
+
+        <div>
+            <div>
+                <strong>Books</strong>
+            </div>
+            <div>
+                {% if booklist %}
+                 <table class="table table-hover table-striped table-bordered">
+                    {% for item in booklist %}
+                        {% if item.itemtype == "Book" %}
+                            <tr><td colspan="2" align="center"> <a href="{% url 'libapp:detail' item.id %}">{{ item.title}} </a> </td></tr>
+                                <tr><td> Author </td> <td> {{ item.author }}</td> </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+
+                {% else %}
+
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            <div>
+                <strong>DVDs</strong>
+            </div>
+            <div>
+                {% if dvdlist %}
+                <table class="table table-hover table-striped table-bordered">
+                    {% for item in dvdlist %}
+                        {% if item.itemtype == "DVD" %}
+                        <tr><td colspan="2" align="center"> <a href="{% url 'libapp:detail' item.id %}">{{ item.title}} </a> </td></tr>
+                                <tr><td> Maker</td><td> {{ item.maker }}</td></tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+
+                {% else %}
+                    <strong> </strong>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+     </td><td width="30%"></td></tr>
+      </table>
+{% endblock %}

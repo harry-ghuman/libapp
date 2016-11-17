@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>{% block head %}
+        <!-- Materialize CSS -->
+        <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}"  media="screen,projection"/>
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Materialize CSS end -->
+
+
+
+{#        <!-- Latest compiled and minified CSS -->#}
+{#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">#}
+{##}
+{#<script type="text/javascript" src="{% static 'libapp/jquery.min.js'%}"></script>#}
+{#<!-- Latest compiled and minified JavaScript -->#}
+{#        <link rel="stylesheet" type="text/css" href="{% static 'libapp/css/style.css' %}" />#}
+{#            <link rel="stylesheet" type="text/css" href="{% static 'libapp/css/bootstrap.min.css'%}"/>#}
+{##}
+{#            <script type="text/javascript" src="{% static 'libapp/js/bootstrap.min.js'%}"></script>#}
+
+        <title>MAC Library APP - {% block title %}Welcome!{% endblock %}</title>
+    </head>{% endblock %}
+
+
+<body background="/app/static/css/background1.png">
+    <div class="navbar-fixed">
+         <nav class="nav-wrapper" style="padding-left: 0">
+            <div class="container-fluid">
+                     <ul class="nav navbar-nav">
+                 <li><a href="{% url 'app:index' %}" class="flow-text">Home</a></li>
+                 <li><a href = "{% url 'app:about' %}" class="flow-text">About</a></li>
+                         <li><a href = "{% url 'app:myitems' %}" class="flow-text">My Items</a></li>
+                    <li><a href = "{% url 'app:searchitem' %}" class="flow-text">Search the library</a></li>
+                         <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><span class="flow-text" style="font-size: 180%">Suggestions</span><i class="material-icons right">arrow_drop_down</i></a>
+                         <ul id="dropdown1" class="dropdown-content active" style="width: 143px; position: absolute; top: 0; left: 920px; opacity: 1; display: none;">
+                    <li><a href = "{% url 'app:suggestions' %}" class="flow-text">Suggestested Items</a></li>
+                    <li><a href = "{% url 'app:newitem' %}" class="flow-text">New Sugggestion</a></li>
+                             </ul>
+                         </li>
+                     </ul>
+                {% if request.user.username %}
+                    <ul class="right">
+                    <li style="padding-top: 2.5%">
+                        {% for users in userob %}
+                             <span class="span-logo"><img class="circular-pic" src="/{{ users.profilepic }}" width="50" height="50"/></span>
+                        {% endfor %}
+                        </li>
+                        <li>
+                             <li id="myaccount"><a class="dropdown-button1" href="#!" data-activates="dropdown2"><span class="flow-text" style="font-size: 180%">{{ request.user.first_name }}&nbsp;{{ request.user.last_name }}</span><i class="material-icons right">arrow_drop_down</i></a>
+                    <ul id="dropdown2" class="dropdown-content active" style="width: 143px; position: absolute; top: 0; left: 920px; opacity: 1; display: none;">
+                        <li><a href="{% url 'app:myacct' %}">Edit Profile</a></li>
+                        <li><a href="{% url 'app:setpwd' %}">Change Password</a></li>
+                        <li><a href="{% url 'app:logout' %}" class="flow-text">Logout</a></li>
+                    </ul>
+                    </li>
+                 {% else %}
+                     <ul class="right">
+                         <li><a href = "{% url 'app:login' %}" class="flow-text">Login</a></li>
+                         <li><a href = "{% url 'app:register' %}" class="flow-text">Register</a></li>
+                     </ul>
+                 {% endif %}
+                </div>
+                </nav>
+    </div>
+        <div>
+{#        {% if request.user.username %}#}
+{#            <h4 style="color: whitesmoke">{% block myhdg %}Hello {{ request.user.first_name }} {{ request.user.last_name }} {% endblock %}</h4><br/><br/>#}
+{#        {% endif %}#}
+        </div>
+         <div>
+            {% block body_block %}*** {% endblock %}
+        <br/><br/><br/><br/>
+    <footer class="page-footer" style="position: fixed; bottom: 0; width: 120%; background-color: black">
+        <a href="{% url 'app:about' %}" class="grey-text text-lighten-4" style="padding-right: 7%; padding-left: 1%">Find out about this site</a>
+            <a href = "{% url 'app:index' %}" class="grey-text text-lighten-4">Click here to return to main page</a><br/><br/>
+        </footer>
+        </div>
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+      <script>
+     $(document).ready(function() {
+        $('select').material_select();
+    });
+          $(".dropdown-button").dropdown();
+          $(".dropdown-button1").dropdown();
+  </script>
+</body>
+</html>

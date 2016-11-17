@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+   <link rel="stylesheet" type="text/css" href="{% static 'libapp/bootstrap.min.css' %}" />
+   <link rel="stylesheet" type="text/css" href="{% static 'libapp/bootstrap-theme.min.css' %}" />
+   <link rel="stylesheet" type="text/css" href="{% static 'libapp/bootstrap-theme.css' %}" />
+   <link rel="stylesheet" type="text/css" href="{% static 'libapp/bootstrap.css' %}" />
+
+
+<html>
+    <head>
+
+        <title>MAC Library APP - {% block title %}Welcome!{% endblock %}</title>
+    </head>
+
+    <body>
+        {% if user.is_authenticated %}
+          <p align="center"><strong>Hello {{ user.username }}</strong></p>
+        {% else %}
+          <p ></p>
+            <p></p>
+        {% endif %}
+         <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered">
+                <tr>
+                    <td><a href="{% url 'libapp:about' %}">Find out about this site</a><br/><a href="{% url 'libapp:user_login' %}">Login</a></td>
+                    <td><a href = "{% url 'libapp:index' %}">Click here to return to main page</a><br/><a href="{% url 'libapp:register' %}">Register</a></td>
+                    {% if user.is_authenticated %}
+                        <td><a href="{% url 'libapp:myitems' %}">My Items</a></br><a href="{% url 'libapp:user_logout' %}">Logout</a></td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td><a href = "{% url 'libapp:suggestions' %}">Click here to find out Suggestions</a></td>
+                    <td><a href="{% url 'libapp:searchlib' %}">Search</a></td>
+                </tr>
+            </table>
+
+        </div>
+         <hr />
+        <div class="row">
+            <h1 class="bg-primary">{% block myhdg %} {% endblock %}</h1>
+            {% block body_block %}*** {% endblock %}
+        </div>
+
+
+    </body>
+</html>

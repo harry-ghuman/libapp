@@ -1,0 +1,26 @@
+{% extends 'libapp/base.html' %}
+
+{% block body_block %}
+     <table class="table table-hover table-striped table-bordered">
+      <tr><td width="30%"></td><td width="40%">
+   {% if item %}
+        <table class="table table-hover table-striped table-bordered">
+        <tr><td colspan="2" align="center">ITEM DETAIL</td></tr>
+                 <tr ><td> Title</td><td>  {{ item.title}} </td></tr>
+                 <tr ><td> Publication year</td><td>  {{ item.pubyr}} </td></tr>
+                {% if item.itemtype == 'Book' %}
+                   <tr ><td> Author  </td><td> {{ item.book.author}} </td></tr>
+                   <tr ><td> Category </td><td>  {{ item.book.category}} </td></tr>
+                {% elif item.itemtype == 'DVD' %}
+                     <tr ><td> Maker</td><td>  {{ item.dvd.maker}} </td></tr>
+                     <tr ><td> Duration</td><td>  {{ item.dvd.duration}} </td></tr>
+                     <tr ><td> Rating</td><td>  {{ item.dvd.rating}} </td></tr>
+                {% endif %}
+       </table>
+
+    {% else %}
+        <strong>There are no available items!</strong>
+    {% endif %}
+
+      </td><td width="30%"></td></tr> </table>
+{% endblock %}
